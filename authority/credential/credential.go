@@ -24,6 +24,19 @@ type Credential struct {
 	Value
 }
 
+func (c *Credential) WithName(n Name) *Credential {
+	c.Name = n
+	return c
+}
+
+func (c *Credential) WithValue(v Value) *Credential {
+	c.Value = v
+	return c
+}
+func New() *Credential {
+	return &Credential{}
+}
+
 type CredentialSource interface {
 	NameSource
 	ValueSource
@@ -32,4 +45,17 @@ type CredentialSource interface {
 type Credentials interface {
 	Get(Name) (Value, error)
 	Set(Name, Value) error
+}
+
+type Map map[Name]Value
+
+func (m *Map) Get(n Name) (Value, error) {
+	return (*m)[n], nil
+}
+func (m *Map) Set(n Name, v Value) error {
+	(*m)[n] = v
+	return nil
+}
+func NewMap() *Map {
+	return &Map{}
 }
