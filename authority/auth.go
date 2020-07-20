@@ -38,3 +38,7 @@ func NewAuth(p Principal) *Auth {
 		principal: p,
 	}
 }
+
+type AuthResult interface {
+	Auth() *Auth
+}

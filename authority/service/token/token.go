@@ -11,3 +11,11 @@ type Token struct {
 	*authority.Expiration
 	Payloads authority.Payloads
 }
+
+func (t *Token) Auth() *authority.Auth {
+	return authority.NewAuth(t.Principal).WithAgent(t.Agent).WithPayloads(t.Payloads)
+}
+
+func NewToken() *Token {
+	return &Token{}
+}

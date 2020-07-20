@@ -14,3 +14,11 @@ type Verified struct {
 	authority.Principal
 	authority.Agent
 }
+
+func (v *Verified) Auth() *authority.Auth {
+	return authority.NewAuth(v.Principal).WithAgent(v.Agent)
+}
+
+func NewVerified() *Verified {
+	return &Verified{}
+}
