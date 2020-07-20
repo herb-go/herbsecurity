@@ -7,7 +7,13 @@ type Auth struct {
 }
 
 func (a *Auth) Principal() Principal {
+	if a == nil {
+		return ""
+	}
 	return a.principal
+}
+func (a *Auth) String() string {
+	return string(a.Principal())
 }
 func (a *Auth) WithAgent(agent Agent) *Auth {
 	a.agent = agent
