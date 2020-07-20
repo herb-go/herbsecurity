@@ -4,36 +4,22 @@ import "github.com/herb-go/herbsecurity/authority"
 
 type Authenticator interface {
 	Authenticate(Credentials) (*authority.Auth, error)
+	DependencesData() (map[Name]bool, error)
 }
-
-type Dependences map[Name]bool
-
-func (d Dependences) DependencesData() (Dependences, error) {
-	return d, nil
-}
-
-type DependencesSource interface {
-	DependencesData() (Dependences, error)
-}
-
-type DependencesAuthenticator interface {
-	Authenticator
-	DependencesSource
-}
-type PlainDependencesAuthenticator struct {
+type PlainAuthenticator struct {
 	authenticateFunc func(Credentials) (*authority.Auth, error)
 	dependences      map[Name]bool
 }
 
-func (a PlainDependencesAuthenticator) Authenticate(c Credentials) (*authority.Auth, error) {
+func (a PlainAuthenticator) Authenticate(c Credentials) (*authority.Auth, error) {
 	return a.authenticateFunc(c)
 }
 
-func (a PlainDependencesAuthenticator) DependencesData() (Dependences, error) {
+func (a PlainAuthenticator) DependencesData() (map[Name]bool, error) {
 	return a.dependences, nil
 }
-func AuthenticatorFunc(a func(Credentials) (*authority.Auth, error), c ...Name) DependencesAuthenticator {
-	authenicator := &PlainDependencesAuthenticator{
+func AuthenticatorFunc(a func(Credentials) (*authority.Auth, error), c ...Name) Authenticator {
+	authenicator := &PlainAuthenticator{
 		authenticateFunc: a,
 		dependences:      map[Name]bool{},
 	}
@@ -43,7 +29,7 @@ func AuthenticatorFunc(a func(Credentials) (*authority.Auth, error), c ...Name) 
 	return authenicator
 }
 
-func AuthenticateWithDependences(a DependencesAuthenticator, c ...CredentialSource) (*authority.Auth, error) {
+func Authenticate(a Authenticator, c ...CredentialSource) (*authority.Auth, error) {
 	m := NewMap()
 	availableTypes, err := a.DependencesData()
 	if err != nil {
@@ -70,7 +56,7 @@ type FixedAuthenticator string
 func (v FixedAuthenticator) Authenticate(Credentials) (*authority.Auth, error) {
 	return authority.NewAuth(authority.Principal(v)), nil
 }
-func (v FixedAuthenticator) DependencesData() (Dependences, error) {
+func (v FixedAuthenticator) DependencesData() (map[Name]bool, error) {
 	return map[Name]bool{}, nil
 }
 

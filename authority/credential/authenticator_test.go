@@ -28,15 +28,15 @@ var testAuthenticator = AuthenticatorFunc(
 func TestVerifier(t *testing.T) {
 	appid := New().WithName(NameAuthority).WithValue([]byte("testappid"))
 	token := New().WithName(NamePassphrase).WithValue([]byte("testtoken"))
-	auth, err := AuthenticateWithDependences(testAuthenticator, appid)
+	auth, err := Authenticate(testAuthenticator, appid)
 	if auth.Authenticated() || err != nil {
 		t.Fatal(auth, err)
 	}
-	auth, err = AuthenticateWithDependences(testAuthenticator, appid, token)
+	auth, err = Authenticate(testAuthenticator, appid, token)
 	if auth.Principal() != "testappid" || err != nil {
 		t.Fatal(auth, err)
 	}
-	auth, err = AuthenticateWithDependences(ForbiddenAuthenticator, appid, token)
+	auth, err = Authenticate(ForbiddenAuthenticator, appid, token)
 	if auth.Authenticated() || err != nil {
 		t.Fatal(auth, err)
 	}
