@@ -12,7 +12,6 @@ type Application struct {
 type Verified struct {
 	authority.Principal
 	authority.Agent
-	authority.Expiration
 	Application
 }
 
