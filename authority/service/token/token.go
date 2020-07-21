@@ -13,6 +13,9 @@ type Token struct {
 }
 
 func (t *Token) Auth() *authority.Auth {
+	if t == nil {
+		return nil
+	}
 	return authority.NewAuth(t.Principal).WithAgent(t.Agent).WithPayloads(t.Payloads)
 }
 

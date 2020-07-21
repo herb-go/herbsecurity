@@ -23,3 +23,23 @@ func LoadAuthority(c Credentials) (authority.Authority, error) {
 	}
 	return authority.Authority(p), nil
 }
+
+var NameAppID = Name("appid")
+
+func LoadAppID(c Credentials) (authority.Authority, error) {
+	p, err := c.Get(NameAppID)
+	if err != nil {
+		return "", err
+	}
+	return authority.Authority(p), nil
+}
+
+var NameSecret = Name("secret")
+
+func LoadSecret(c Credentials) (authority.Passphrase, error) {
+	p, err := c.Get(NameSecret)
+	if err != nil {
+		return "", err
+	}
+	return authority.Passphrase(p), nil
+}

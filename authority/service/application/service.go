@@ -16,3 +16,14 @@ type Revoker interface {
 type Loader interface {
 	LoadApplication(authority.Authority) (*Verified, error)
 }
+
+type Service interface {
+	Creator
+	Regenerator
+	Revoker
+	Loader
+}
+
+type ServiceFactory interface {
+	CreateApplicationService(func(interface{}) error) (Service, error)
+}

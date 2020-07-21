@@ -19,5 +19,8 @@ func NewVerified() *Verified {
 	return &Verified{}
 }
 func (v *Verified) Auth() *authority.Auth {
+	if v == nil {
+		return nil
+	}
 	return authority.NewAuth(v.Principal).WithAgent(v.Agent)
 }
