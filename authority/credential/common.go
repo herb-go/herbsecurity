@@ -43,3 +43,23 @@ func LoadSecret(c Credentials) (authority.Passphrase, error) {
 	}
 	return authority.Passphrase(p), nil
 }
+
+var NameTimestamp = Name("timestamp")
+
+func LoadTimestamp(c Credentials) (string, error) {
+	p, err := c.Get(NameTimestamp)
+	if err != nil {
+		return "", err
+	}
+	return string(p), nil
+}
+
+var NameSign = Name("sign")
+
+func LoadSign(c Credentials) (string, error) {
+	p, err := c.Get(NameSign)
+	if err != nil {
+		return "", err
+	}
+	return string(p), nil
+}
