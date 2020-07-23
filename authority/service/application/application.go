@@ -27,5 +27,5 @@ func (v *Verified) Auth() *authority.Auth {
 	}
 	p := v.Payloads.Clone()
 	p.Set(authority.PayloadSignSecret, []byte(v.Passphrase))
-	return authority.NewAuth(v.Principal).WithAgent(v.Agent).WithPayloads(p)
+	return authority.NewAuth(v.Principal).WithAgent(v.Agent).WithPayloads(p).WithAuthority(v.Application.Authority)
 }

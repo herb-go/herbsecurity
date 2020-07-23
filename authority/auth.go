@@ -3,6 +3,7 @@ package authority
 type Auth struct {
 	principal Principal
 	agent     Agent
+	authority Authority
 	payloads  *Payloads
 }
 
@@ -29,6 +30,14 @@ func (a *Auth) WithPayloads(payloads *Payloads) *Auth {
 func (a *Auth) Payloads() *Payloads {
 	return a.payloads
 }
+func (a *Auth) WithAuthority(authority Authority) *Auth {
+	a.authority = authority
+	return a
+}
+func (a *Auth) Authority() Authority {
+	return a.authority
+}
+
 func (a *Auth) Authenticated() bool {
 	if a == nil || a.Principal() == "" {
 		return false

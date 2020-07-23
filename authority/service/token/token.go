@@ -16,7 +16,7 @@ func (t *Token) Auth() *authority.Auth {
 	if t == nil {
 		return nil
 	}
-	return authority.NewAuth(t.Principal).WithAgent(t.Agent).WithPayloads(t.Payloads)
+	return authority.NewAuth(t.Principal).WithAgent(t.Agent).WithPayloads(t.Payloads).WithAuthority(authority.Authority(t.Passphrase))
 }
 
 func NewToken() *Token {
