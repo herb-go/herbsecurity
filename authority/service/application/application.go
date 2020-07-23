@@ -12,15 +12,20 @@ type Application struct {
 type Verified struct {
 	authority.Principal
 	authority.Agent
+	*authority.Payloads
 	Application
 }
 
 func NewVerified() *Verified {
-	return &Verified{}
+	return &Verified{
+		Payloads: authority.NewPayloads(),
+	}
 }
 func (v *Verified) Auth() *authority.Auth {
 	if v == nil {
 		return nil
 	}
-	return authority.NewAuth(v.Principal).WithAgent(v.Agent)
+	p := v.Payloads.Clone()
+	p.Set(authority.PayloadSignSecret, []byte(v.Passphrase))
+	return authority.NewAuth(v.Principal).WithAgent(v.Agent).WithPayloads(p)
 }

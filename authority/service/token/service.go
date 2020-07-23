@@ -11,7 +11,7 @@ type Service interface {
 	Loader
 }
 type Issuer interface {
-	IssueToken(authority.Principal, authority.Passphrase, *authority.Expiration, authority.Payloads) (Token, error)
+	IssueToken(authority.Principal, authority.Passphrase, *authority.Expiration, *authority.Payloads) (Token, error)
 }
 
 type Revoker interface {

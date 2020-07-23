@@ -13,7 +13,7 @@ type Updater interface {
 }
 
 type Creator interface {
-	CreateAccount(authority.Principal, authority.Authority, authority.Agent, authority.Passphrase) error
+	CreateAccount(authority.Principal, authority.Authority, authority.Agent, authority.Passphrase, *authority.Payloads) error
 }
 type Revoker interface {
 	RevokeAccount(authority.Principal, authority.Authority) error

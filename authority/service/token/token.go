@@ -9,7 +9,7 @@ type Token struct {
 	authority.Principal
 	authority.Agent
 	*authority.Expiration
-	Payloads authority.Payloads
+	Payloads *authority.Payloads
 }
 
 func (t *Token) Auth() *authority.Auth {

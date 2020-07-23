@@ -3,7 +3,7 @@ package application
 import "github.com/herb-go/herbsecurity/authority"
 
 type Creator interface {
-	CreateApplication(authority.Principal, authority.Agent) (*Verified, error)
+	CreateApplication(authority.Principal, authority.Agent, *authority.Payloads, *authority.Payloads) (*Verified, error)
 }
 
 type Regenerator interface {

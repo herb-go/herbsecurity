@@ -13,6 +13,7 @@ type Verified struct {
 	*authority.Expiration
 	authority.Principal
 	authority.Agent
+	*authority.Payloads
 }
 
 func (v *Verified) Auth() *authority.Auth {
@@ -23,5 +24,7 @@ func (v *Verified) Auth() *authority.Auth {
 }
 
 func NewVerified() *Verified {
-	return &Verified{}
+	return &Verified{
+		Payloads: authority.NewPayloads(),
+	}
 }
