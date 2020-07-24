@@ -78,6 +78,13 @@ func NewRoles(r ...*Role) *Roles {
 	roles := Roles(r)
 	return (&roles).Clone()
 }
+func NewPlainRoles(name ...string) *Roles {
+	r := NewRoles()
+	for k := range name {
+		r.Append(NewRole(name[k]))
+	}
+	return r
+}
 
 type RolesLoader interface {
 	LoadRoles() (*Roles, error)
