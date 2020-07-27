@@ -20,4 +20,8 @@ func TestParam(t *testing.T) {
 	if p.Encode() != "b=2&a=1" {
 		t.Fatal(p.Encode())
 	}
+	p.Append("c", "")
+	if p.Encode() != "b=2&a=1" {
+		t.Fatal(p.Encode())
+	}
 }

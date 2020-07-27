@@ -32,7 +32,9 @@ func (p *Params) Clone() *Params {
 func (p *Params) Encode() string {
 	data := []string{}
 	for _, v := range *p {
-		data = append(data, url.QueryEscape(v.Name)+"="+url.QueryEscape(v.Value))
+		if v.Value != "" {
+			data = append(data, url.QueryEscape(v.Name)+"="+url.QueryEscape(v.Value))
+		}
 	}
 	return strings.Join(data, "&")
 }
