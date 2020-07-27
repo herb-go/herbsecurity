@@ -11,6 +11,10 @@ func testHasher(s string) (string, error) {
 }
 
 func TestHash(t *testing.T) {
+	DebugSign = true
+	defer func() {
+		DebugSign = false
+	}()
 	p := NewParams()
 	p.Append("a", "1")
 	p.Append("b", "2")
