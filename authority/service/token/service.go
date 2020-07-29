@@ -9,19 +9,29 @@ type Service interface {
 	Revoker
 	Refresher
 	Loader
+	Start() error
+	Stop() error
 }
 type Issuer interface {
-	IssueToken(authority.Principal, authority.Passphrase, *authority.Expiration, *authority.Payloads) (Token, error)
+	IssueToken(*Token) error
 }
 
 type Revoker interface {
-	RevokeToken(authority.Passphrase) (Token, error)
+	RevokeToken(authority.Principal, authority.Passphrase) (Token, error)
 }
 
 type Refresher interface {
-	RefreshToken(authority.Passphrase, *authority.Expiration) error
+	RefreshToken(authority.Principal, authority.Passphrase, *authority.Expiration) error
 }
 
 type Loader interface {
 	LoadToken(authority.Passphrase) (*Token, error)
+}
+
+type Manager interface {
+	Service
+	VerifyToken(authority.Principal, authority.Passphrase) (bool, error)
+	ListTokens(authority.Principal) ([]*Token, error)
+	RevokeTokens(authority.Principal) error
+	GeneratePassphrase() (authority.Passphrase, error)
 }
