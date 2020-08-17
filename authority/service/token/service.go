@@ -27,11 +27,3 @@ type Refresher interface {
 type Loader interface {
 	LoadToken(authority.Passphrase) (*Token, error)
 }
-
-type Manager interface {
-	Service
-	VerifyToken(authority.Principal, authority.Passphrase) (bool, error)
-	ListTokens(authority.Principal) ([]*Token, error)
-	RevokeTokens(authority.Principal) error
-	GeneratePassphrase() (authority.Passphrase, error)
-}
