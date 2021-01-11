@@ -53,6 +53,7 @@ func NewPayloads() *Payloads {
 }
 
 var PayloadSignSecret = "signsecret"
+var PayloadRoles = "roles"
 
 type HumanReadablePayloads map[string]string
 

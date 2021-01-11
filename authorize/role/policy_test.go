@@ -37,3 +37,44 @@ func TestPolicy(t *testing.T) {
 		t.Fatal(ok)
 	}
 }
+
+func TestUtil(t *testing.T) {
+	var ok bool
+	var err error
+	ok, err = Allow.Authorize(nil)
+	if ok != true || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = Deny.Authorize(nil)
+	if ok == true || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = Not(Allow).Authorize(nil)
+	if ok == true || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = Or().Authorize(nil)
+	if ok != true || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = Or(Deny, Deny, Allow).Authorize(nil)
+	if ok != true || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = Or(Deny, Deny, Deny).Authorize(nil)
+	if ok != false || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = And().Authorize(nil)
+	if ok != false || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = And(Deny, Deny, Allow).Authorize(nil)
+	if ok != false || err != nil {
+		t.Fatal(ok, err)
+	}
+	ok, err = And(Allow, Allow, Allow).Authorize(nil)
+	if ok != true || err != nil {
+		t.Fatal(ok, err)
+	}
+}
