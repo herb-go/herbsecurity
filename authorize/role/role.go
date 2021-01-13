@@ -1,5 +1,9 @@
 package role
 
+const SuperuserName = "root"
+
+var Superuser = New(SuperuserName)
+
 type Role struct {
 	Name       string
 	Attributes *Attributes
@@ -78,7 +82,7 @@ func NewRoles(r ...*Role) *Roles {
 	roles := Roles(r)
 	return (&roles).Clone()
 }
-func NewPlainRoles(name ...string) *Roles {
+func New(name ...string) *Roles {
 	r := NewRoles()
 	for k := range name {
 		r.Append(NewRole(name[k]))
