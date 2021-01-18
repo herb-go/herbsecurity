@@ -7,10 +7,10 @@ import (
 	"github.com/herb-go/herbsecurity/authorize/role"
 )
 
-func StringifyRoles(roles role.Roles) string {
+func StringifyRoles(roles *role.Roles) string {
 	var result = []string{}
-	for k := range roles {
-		result = append(result, stringifyRole(roles[k]))
+	for k := range *roles {
+		result = append(result, stringifyRole((*roles)[k]))
 	}
 	return strings.Join(result, TokenRoleSep)
 }
@@ -84,6 +84,7 @@ func parseRole(str string) (*role.Role, error) {
 			attributes, err = parseAttributes(result[1])
 			if err == nil {
 				r.Attributes = attributes
+				return r, nil
 			}
 		}
 	default:

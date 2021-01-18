@@ -19,13 +19,16 @@ func TestStringify(t *testing.T) {
 			WithNewAttribute("testkey", []byte("testvalue")).
 			WithNewAttribute("testkey=2", []byte("testvalue2")),
 	)
-	str = StringifyRoles(*roles)
+	str = StringifyRoles(roles)
 	if str != ";test1;test1%3D1:testkey=testvalue;test1%3A1:testkey=testvalue,testkey%3D2=testvalue2" {
 		t.Fatal(str)
 	}
 	rs, err := ParseRoles(str)
 	if err != nil {
 		t.Fatal(rs, err)
+	}
+	if StringifyRoles(rs) != str {
+		t.Fatal(str)
 	}
 }
 
