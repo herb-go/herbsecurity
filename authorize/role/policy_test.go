@@ -53,27 +53,27 @@ func TestUtil(t *testing.T) {
 	if ok == true || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = Or().Authorize(nil)
+	ok, err = Any().Authorize(nil)
 	if ok != true || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = Or(Deny, Deny, Allow).Authorize(nil)
+	ok, err = Any(Deny, Deny, Allow).Authorize(nil)
 	if ok != true || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = Or(Deny, Deny, Deny).Authorize(nil)
+	ok, err = Any(Deny, Deny, Deny).Authorize(nil)
 	if ok != false || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = And().Authorize(nil)
+	ok, err = All().Authorize(nil)
 	if ok != false || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = And(Deny, Deny, Allow).Authorize(nil)
+	ok, err = All(Deny, Deny, Allow).Authorize(nil)
 	if ok != false || err != nil {
 		t.Fatal(ok, err)
 	}
-	ok, err = And(Allow, Allow, Allow).Authorize(nil)
+	ok, err = All(Allow, Allow, Allow).Authorize(nil)
 	if ok != true || err != nil {
 		t.Fatal(ok, err)
 	}

@@ -36,7 +36,7 @@ func Not(p Policy) Policy {
 	})
 }
 
-func Or(policies ...Policy) Policy {
+func Any(policies ...Policy) Policy {
 	return PolicyFunc(func(r *Roles) (bool, error) {
 		if len(policies) == 0 {
 			return true, nil
@@ -54,7 +54,7 @@ func Or(policies ...Policy) Policy {
 	})
 }
 
-func And(policies ...Policy) Policy {
+func All(policies ...Policy) Policy {
 	return PolicyFunc(func(r *Roles) (bool, error) {
 		if len(policies) == 0 {
 			return false, nil
