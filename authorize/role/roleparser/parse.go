@@ -18,7 +18,7 @@ func StringifyRoles(roles *role.Roles) string {
 func stringifyRole(role *role.Role) string {
 	rolename := Escape(role.Name)
 	attributes := stringifyAttributes(role.Attributes)
-	if attributes == "" {
+	if attributes == "" && role.Name != "" {
 		return rolename
 	}
 	return rolename + TokenAttributesStart + attributes
@@ -56,8 +56,11 @@ func parseAttribute(str string) (*role.Attribute, error) {
 	return nil, err
 }
 func parseAttributes(str string) (*role.Attributes, error) {
-	var result = strings.Split(str, TokenAttributeSep)
 	a := role.NewAttributes()
+	if str == "" {
+		return a, nil
+	}
+	var result = strings.Split(str, TokenAttributeSep)
 	for _, v := range result {
 		attr, err := parseAttribute(v)
 		if err != nil {
@@ -96,6 +99,9 @@ func ParseRoles(str string) (*role.Roles, error) {
 	roles := &role.Roles{}
 	rolelist := strings.Split(str, TokenRoleSep)
 	for _, v := range rolelist {
+		if v == "" {
+			continue
+		}
 		role, err := parseRole(v)
 		if err != nil {
 			return nil, err
