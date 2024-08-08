@@ -6,7 +6,7 @@ func TestRole(t *testing.T) {
 	role1 := NewRole("testrole")
 	rolechina := NewRole("testrole").WithNewAttribute("country", []byte("china"))
 	rolechinauas := NewRole("testrole").WithNewAttribute("country", []byte("china")).WithNewAttribute("country", []byte("usa"))
-	roleother := NewRole("Othher").WithNewAttribute("country", []byte("china"))
+	roleother := NewRole("Other").WithNewAttribute("country", []byte("china"))
 	if role1.Contains(rolechina) {
 		t.Fatal()
 	}

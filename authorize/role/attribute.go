@@ -9,6 +9,12 @@ type Attribute struct {
 	Value   []byte
 }
 
+func (a *Attribute) Equal(b *Attribute) bool {
+	if a.Keyword == b.Keyword {
+		return bytes.Equal(a.Value, b.Value)
+	}
+	return false
+}
 func NewAttribute() *Attribute {
 	return &Attribute{}
 }
@@ -60,7 +66,7 @@ func (a *Attributes) Contains(target *Attributes) bool {
 Found:
 	for _, v := range *target {
 		for _, v2 := range *a {
-			if v.Keyword == v2.Keyword && bytes.Compare(v.Value, v2.Value) == 0 {
+			if v2.Equal(v) {
 				continue Found
 			}
 		}
