@@ -27,7 +27,7 @@ func (r *Role) WithNewAttributeValues(name string, values ...[]byte) *Role {
 	return r
 }
 
-//NewRole create new role by given name.
+// NewRole create new role by given name.
 func NewRole(name string) *Role {
 	return &Role{
 		Name:       name,
@@ -88,6 +88,13 @@ func New(name ...string) *Roles {
 		r.Append(NewRole(name[k]))
 	}
 	return r
+}
+func Concat(r ...*Roles) *Roles {
+	result := New()
+	for _, v := range r {
+		result.Append(v.Data()...)
+	}
+	return result
 }
 
 type RolesLoader interface {

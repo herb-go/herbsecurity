@@ -37,4 +37,13 @@ func TestRoles(t *testing.T) {
 	if !roles.Contains(NewRoles(NewRole("testrole").WithNewAttribute("country", []byte("china")))) {
 		t.Fatal()
 	}
+	role1 := NewRole("role1")
+	role2 := NewRole("role2")
+	roles1 := NewRoles(role1)
+	roles2 := NewRoles(role2)
+	roles3 := Concat(roles1, roles2)
+	data := roles3.Data()
+	if len(data) != 2 || data[0] != role1 || data[1] != role2 {
+		t.Fatal()
+	}
 }
